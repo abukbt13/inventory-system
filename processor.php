@@ -53,7 +53,7 @@ if(isset($_POST['register'])){
                     $_SESSION['username'] = $fullName;
                     $_SESSION['user_id'] = $user_id;
                     $_SESSION['role'] = $role;
-                    header("location:dashboard.php");
+                    header("location:index.php");
                 } else {
                     session_start();
                     $_SESSION['status'] = 'Something went wrong';
