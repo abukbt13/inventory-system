@@ -31,12 +31,80 @@ if(!isset($_SESSION['loggedIn'])){
             </div>
         </div>
         <div class="col-lg-10">
-            <form action="index.php" method="post">
+            <form>
+                <div class="form-group">
+                    <label for="name">Product type</label>
+                    <select required id="type" class="form-control" id="type">
+                        <option value="fertiliser">Fertilisers</option>
+                        <option value="inserticides">Inserticides</option>
+                        <option value="seeds">Seeds</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Product Name</label>
+                    <select id="name" name="name" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Description</label>
+                    <textarea class="form-control" required name="description" id="address" rows="3" placeholder="Enter your address"></textarea>
+                </div>
 
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
+                </div>
+
+                <div class="form-group">
+                    <label for="payment">Payment method</label>
+                    <select class="form-control" id="payment">
+                        <option>Credit card</option>
+                        <option>Debit card</option>
+                        <option>Cash</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+
         </div>
     </div>
 </div>
 <p>Footer here</p>
+
+
+<script>
+    var ptype_select = document.getElementById("type");
+    var name_select = document.getElementById("name");
+
+    // Populate the districts select element when the region is changed
+    type.addEventListener("change", function() {
+        var type= ptype_select.value;
+
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Set up the Ajax request
+        xhr.open("POST", "../backend/fertilisers.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Send the Ajax request with the selected region value
+        xhr.send("type=" + type);
+
+        // Handle the Ajax response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                var names = JSON.parse(xhr.responseText);
+
+                // Clear the districts select element and add the new options
+                name_select.innerHTML = "";
+                for (var i = 0; i < names.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = names[i];
+                    option.text = names[i];
+                    name_select.appendChild(option);
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>

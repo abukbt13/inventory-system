@@ -7,9 +7,8 @@
 // 	exit();
 // }
 
-// require_once('inc/config/constants.php');
-require_once('inc/config/db.php');
-require_once('inc/header.html');
+// require_once('inc/config/constants.php')
+require_once('header.php');
 ?>
 <body>
 <!-- Default Page Content (login form) -->
@@ -56,8 +55,6 @@ require_once('inc/header.html');
         </div>
     </div>
 </div>
-<?php
-require 'inc/footer.php';
-?>
+<p>footer here</p>
 </body>
 </html>

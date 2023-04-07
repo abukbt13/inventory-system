@@ -1,9 +1,6 @@
 <?php
 
-include 'inc/config/db.php';
-//require 'vendor/autoload.php';
-//use PHPMailer\PHPMailer\PHPMailer;
-//use PHPMailer\PHPMailer\SMTP;
+include 'connection.php';
 
 
 if(isset($_POST['register'])){
@@ -17,9 +14,6 @@ if(isset($_POST['register'])){
         header("location:register.php");
         die();
     }
-    //Username not available. Please select a different username.
-    //Passwords do not match.
-    //Please enter all fields marked with a (*)
 
     if(!empty($fullName) && !empty($email) && !empty($password1) && !empty($password2)){
 
@@ -95,7 +89,7 @@ if(isset($_POST['register'])){
                     $_SESSION['username'] = $fullname;
                     $_SESSION['email'] = $email;
                     $_SESSION['role'] = $role;
-                    header("location:dashboard.php");
+                    header("location:index.php");
                 }
                 else{
                     session_start();
@@ -104,7 +98,7 @@ if(isset($_POST['register'])){
                     $_SESSION['username'] = $fullname;
                     $_SESSION['email'] = $email;
                     $_SESSION['role'] = $role;
-                    header("location:dashboard.php");
+                    header("location:index.php");
                 }
 
 
