@@ -42,7 +42,7 @@ require_once('header.php');
                             <label for="loginPassword">Password</label>
                             <input type="password" class="form-control" name="password">
                         </div>
-                        <div class="login d-flex justify-content-between">
+                        <div class="login d-flex justify-content-between my-3">
                             <button type="submit" name="login" class="btn btn-primary w-25">Login</button>
                             <button type="reset" class="btn">Clear</button>
                         </div>

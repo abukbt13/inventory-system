@@ -9,7 +9,7 @@
 
 // require_once('inc/config/constants.php');
 // require_once('inc/config/db.php');
-require_once('inc/header.html');
+require_once('header.php');
 ?>
 <body>
 
@@ -70,8 +70,6 @@ require_once('inc/header.html');
 
 
 
-<?php
-require 'inc/footer.php';
-?>
+<p>footer here</p>
 </body>
 </html>

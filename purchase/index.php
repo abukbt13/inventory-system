@@ -6,6 +6,7 @@ if(!isset($_SESSION['loggedIn'])){
     header('Location: login.php');
     exit();
 }
+$user_id=$_SESSION['user_id'];
 if(isset($_POST['confirm_purchase'])){
     $type=$_POST['type'];
     $name=$_POST['name'];
@@ -13,7 +14,7 @@ if(isset($_POST['confirm_purchase'])){
     $price=$_POST['price'];
     $payment=$_POST['payment'];
     $totalprice=$_POST['totalprice'];
-    $buy="insert into purchase (type,name,quantity,price,payment,totalprice,user_id) values ('$type','$name','$quantity','$price','$payment','$totalprice',1)";
+    $buy="insert into purchase (type,name,quantity,price,payment,totalprice,user_id) values ('$type','$name','$quantity','$price','$payment','$totalprice','$user_id')";
     $buyrun=mysqli_query($conn,$buy);
     if($buyrun){
 //        session_start();
@@ -25,6 +26,26 @@ if(isset($_POST['confirm_purchase'])){
 <body>
 <link rel="stylesheet" href="../CSS/style.css">
 <!-- Page Content -->
+<div style="background: blue;" class="header d-flex justify-content-around align-content-center">
+    <h2 class="text-white">Cereals Inventory system </h2>
+    <h2 class="text-white"><?php if(isset($_SESSION['username'])){
+            echo $_SESSION['username'];
+        }?>| <a  style="font-size:22px;" href="../logout.php" class="btn text-white">Logout</a></h2>
+</div>
+<style>
+    .purchase{
+        display: none;
+        position: absolute;
+        top: 7rem;
+        left: 27rem;
+        z-index: 1;
+        background: #565e64;
+        border: 1px solid beige;padding: 2rem; width: 27rem;
+    }
+    .active{
+        display: block;
+    }
+</style>
 <div class="container-fluid">
     <?php
     if(isset($_SESSION['status'])){
@@ -60,8 +81,11 @@ if(isset($_POST['confirm_purchase'])){
         </div>
         <div class="col-lg-10">
             <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
+                <div class="navigate  d-flex  bg-danger-subtle p-2  justify-content-between">
+                    <h2>My purchases</h2>
+                    <button id="purchase" class="btn btn-primary">Make a purchase</button>
+                </div>
                 <thead>
-                <tr><td class="text-center text-uppercase" colspan="6">My Purchases</td></tr>
                 <tr>
                     <th>Type</th>
                     <th>Name</th>
@@ -73,7 +97,7 @@ if(isset($_POST['confirm_purchase'])){
                 </thead>
                 <tbody>
                 <?php
-                $orders="select * from purchase";
+                $orders="select * from purchase where user_id ='$user_id'";
                 $ordersrun=mysqli_query($conn,$orders);
                 while($rows=mysqli_fetch_assoc($ordersrun)){
                     ?>
@@ -85,8 +109,8 @@ if(isset($_POST['confirm_purchase'])){
                         <td><?php echo $rows['totalprice']?></td>
                         <td>
                             <form action="cleastudentprocessor.php" method="post">
-
-                                <button type="submit" class="btn btn-success" name="clearstudent">Pending</button>
+                                <input type="number" hidden="" value="<?php echo $rows['id']?>">
+                                <button type="submit" class="btn btn-success" name="clearstudent">Cancel Order</button>
 
 
                             </form>
@@ -98,45 +122,48 @@ if(isset($_POST['confirm_purchase'])){
                 ?>
                 </tbody>
             </table>
+            <div  class="purchase" id="purchase_form">
+                <div class="float-end" id="close"><button class="btn btn-danger">Close</button></div>
+                <form method="post" action="index.php">
+                    <div class="form-group">
+                        <label for="name">Product type</label>
+                        <select required id="type" class="form-control" name="type">
+                            <option value="">--select type--</option>
+                            <option value="fertilisers">Fertilisers</option>
+                            <option value="inserticides">Inserticides</option>
+                            <option value="seeds">Seeds</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Product Name</label>
+                        <select id="name" name="name" class="form-control"></select>
+                    </div>
 
-            <form method="post" action="index.php">
-                <div class="form-group">
-                    <label for="name">Product type</label>
-                    <select required id="type" class="form-control" name="type">
-                        <option value="">--select type--</option>
-                        <option value="fertilisers">Fertilisers</option>
-                        <option value="inserticides">Inserticides</option>
-                        <option value="seeds">Seeds</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Product Name</label>
-                    <select id="name" name="name" class="form-control"></select>
-                </div>
 
 
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" onchange="myFunc()" class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
+                    </div>
 
-                <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" onchange="myFunc()" class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
-                </div>
+                    <div class="form-group">
+                        <label for="quantity">Price per Bag 6000</label>
+                        <input type="number" hidden="" class="form-control"  name="price" id="price" value="6000" placeholder="Enter quantity">
+                    </div>
 
-                <div class="form-group">
-                    <label for="quantity">Price per Bag 6000</label>
-                    <input type="number" hidden="" class="form-control"  name="price" id="price" value="6000" placeholder="Enter quantity">
-                </div>
+                    <div class="form-group">
+                        <label for="payment">Payment method</label>
+                        <select class="form-control" id="payment" name="payment">
+                            <option>Credit card</option>
+                            <option>Debit card</option>
+                            <option>Cash</option>
+                        </select>
+                    </div>
+                    <p>Total Amount <input type="text" style="display: block;" name="totalprice" id="totalprice" val=""></p>
+                    <button type="submit" name="confirm_purchase" class="btn my-4 p-2 w-50 btn-primary">Confirm Purchase </button>
+                </form>
 
-                <div class="form-group">
-                    <label for="payment">Payment method</label>
-                    <select class="form-control" id="payment" name="payment">
-                        <option>Credit card</option>
-                        <option>Debit card</option>
-                        <option>Cash</option>
-                    </select>
-                </div>
-                <p>Total Amount <input type="text" style="display: block;" name="totalprice" id="totalprice" val=""></p>
-                <button type="submit" name="confirm_purchase" class="btn my-4 p-2 w-50 btn-primary">Confirm Purchase </button>
-            </form>
+            </div>
 
         </div>
     </div>
@@ -145,6 +172,15 @@ if(isset($_POST['confirm_purchase'])){
 
 
 <script>
+    const purchase=document.getElementById('purchase')
+    const purchase_form=document.getElementById('purchase_form')
+    const close=document.getElementById('close')
+    purchase.addEventListener('click',()=>{
+        purchase_form.classList.toggle('active');
+    })
+    close.addEventListener('click',()=>{
+        purchase_form.style.display = 'none';
+    })
 
     var quantity=document.getElementById('quantity');
     var price=document.getElementById('price');
