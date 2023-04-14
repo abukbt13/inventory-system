@@ -29,10 +29,10 @@
 			  <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-customer" aria-selected="false">Reports</a>
 				<ul>
 					<li style="list-style: none;">
-						<a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My sales</a>
+						<span class="">   <a href="farmer/purchasereport.php" >Purchase reports</a></span><br><br>
 					</li>
 					<li style="list-style: none;">
-						<a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My purchases</a>
+						<span class="">   <a href="farmer/salesreport.php" >Sales report</a></span><br><br>
 					</li>
 				</ul>
 			  <a class="nav-link" id="v-pills-search-tab" data-toggle="pill" href="feedback.php" role="tab" aria-controls="v-pills-search" aria-selected="false">Feedbacks</a>
@@ -64,7 +64,10 @@
 		 </div>
 	  </div>
     </div>
-<p>Footer here</p>
+
+<div style="background: blue; position: fixed;bottom: 0px; width: 100%;" class="header d-flex justify-content-around align-content-center pt-3">
+<p style="color: white; font-size: 23px;">Copyrights &copf; inventory system 2023</p>
+</div>
 
 
   </body>

@@ -88,10 +88,10 @@ require_once('header.php');
                 <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-customer" aria-selected="false">Reports</a>
                 <ul>
                     <li style="list-style: none;">
-                        <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My sales</a>
+                        <span class="">   <a href="armer/purchasereport.php" >Purchase reports</a></span><br><br>
                     </li>
                     <li style="list-style: none;">
-                        <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My purchases</a>
+                        <span class="">   <a href="farmer/salesreport.php" >Sales report</a></span><br><br>
                     </li>
                 </ul>
                 <a class="nav-link" id="v-pills-search-tab" data-toggle="pill" href="feedback.php" role="tab" aria-controls="v-pills-search" aria-selected="false">Feedbacks</a>

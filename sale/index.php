@@ -15,11 +15,12 @@ if(isset($_POST['confirm_sell'])){
     $buy="insert into sale (type,quantity,price,description,user_id) values ('$type','$quantity','$price','$description','$user_id')";
     $buyrun=mysqli_query($conn,$buy);
     if($buyrun){
-//        session_start();
+        session_start();
         $_SESSION['status'] = "You have ordered  it successfully";
         header("Location:index.php");
     }
 }
+
 ?>
 <body>
 <link rel="stylesheet" href="../CSS/style.css">
@@ -49,7 +50,7 @@ if(isset($_POST['confirm_sell'])){
     if(isset($_SESSION['status'])){
         ?>
         <div>
-            <div class="bg-danger">
+            <div style="z-index: 1;" class="bg-danger">
                 <p class="bg-danger p-2 text-uppercase"><?php echo $_SESSION['status'] ?></p>
             </div>
         </div>
@@ -58,7 +59,7 @@ if(isset($_POST['confirm_sell'])){
     }
     ?>
     <div class="row">
-        <div class="col-lg-2">
+        <div style="background: #ff9ff3;height: 100vh;" class="col-lg-2">
             <h1 class="my-4"></h1>
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link" id="v-pills-item-tab" data-toggle="pill" href="../index.php" role="tab" aria-controls="v-pills-item" aria-selected="true">Home</a>
@@ -67,12 +68,14 @@ if(isset($_POST['confirm_sell'])){
                 <a class="nav-link active" id="v-pills-sale-tab" data-toggle="pill" href="index.php" role="tab" aria-controls="v-pills-sale" aria-selected="false">Sale</a>
                 <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-customer" aria-selected="false">Reports</a>
                 <ul>
-                    <li style="list-style: none;">
-                        <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My sales</a>
-                    </li>
-                    <li style="list-style: none;">
-                        <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My purchases</a>
-                    </li>
+                    <ul>
+                        <li style="list-style: none;">
+                            <span class="">   <a href="../farmer/purchasereport.php" >Purchase reports</a></span><br><br>
+                        </li>
+                        <li style="list-style: none;">
+                            <span class="">   <a href="../farmer/salesreport.php" >Sales report</a></span><br><br>
+                        </li>
+                    </ul>
                 </ul>
                 <a class="nav-link" id="v-pills-search-tab" data-toggle="pill" href="../feedback.php" role="tab" aria-controls="v-pills-search" aria-selected="false">Feedbacks</a>
             </div>
@@ -81,7 +84,7 @@ if(isset($_POST['confirm_sell'])){
             <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
                 <div class="navigate  d-flex  bg-danger-subtle p-2  justify-content-between">
                     <h2>My purchases</h2>
-                    <button id="purchase" class="btn btn-primary">Make a purchase</button>
+                    <button id="purchase" class="btn btn-primary">Request Sale</button>
                 </div>
                 <thead>
                 <tr>
@@ -104,9 +107,9 @@ if(isset($_POST['confirm_sell'])){
                         <td><?php echo $rows['price']?></td>
                         <td><?php echo $rows['description']?></td>
                         <td>
-                            <form action="cleastudentprocessor.php" method="post">
-                                <input type="number" hidden="" value="<?php echo $rows['id']?>">
-                                <button type="submit" class="btn btn-success" name="clearstudent">Cancel Order</button>
+                            <form action="processor.php" method="post">
+                                <input type="number" hidden="" name="id" value="<?php echo $rows['id']?>">
+                                <button type="submit" onclick="returnConfirm('Are you sure you want to cancel the order')" name="delete" class="btn btn-success" >Cancel Order</button>
 
 
                             </form>
@@ -185,5 +188,8 @@ if(isset($_POST['confirm_sell'])){
 
 
 </script>
+<div style="background: blue; position: fixed;bottom: 0px; width: 100%;" class="header d-flex justify-content-around align-content-center pt-3">
+    <p style="color: white; font-size: 23px;">Copyrights &copf; inventory system 2023</p>
+</div>
 </body>
 </html>

@@ -22,6 +22,7 @@ if(isset($_POST['confirm_purchase'])){
         header("Location:index.php");
     }
 }
+
 ?>
 <body>
 <link rel="stylesheet" href="../CSS/style.css">
@@ -51,7 +52,7 @@ if(isset($_POST['confirm_purchase'])){
     if(isset($_SESSION['status'])){
         ?>
         <div>
-            <div class="bg-danger">
+            <div style="z-index: 1;" class="bg-danger">
                 <p class="bg-danger p-2 text-uppercase"><?php echo $_SESSION['status'] ?></p>
             </div>
         </div>
@@ -60,7 +61,7 @@ if(isset($_POST['confirm_purchase'])){
     }
     ?>
     <div class="row">
-        <div class="col-lg-2">
+        <div  style="background: #ff9ff3;height: 100vh;" class="col-lg-2">
             <h1 class="my-4"></h1>
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link" id="v-pills-item-tab" data-toggle="pill" href="../index.php" role="tab" aria-controls="v-pills-item" aria-selected="true">Home</a>
@@ -70,58 +71,81 @@ if(isset($_POST['confirm_purchase'])){
                 <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-customer" aria-selected="false">Reports</a>
                 <ul>
                     <li style="list-style: none;">
-                        <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My sales</a>
+                        <span class="">   <a href="../farmer/purchasereport.php" >Purchase reports</a></span><br><br>
                     </li>
                     <li style="list-style: none;">
-                        <a class="nav-link" id="v-pills-customer-tab" data-toggle="pill" href="#v-pills-customer" role="tab" aria-controls="v-pills-customer" aria-selected="false">My purchases</a>
+                        <span class="">   <a href="../farmer/salesreport.php" >Sales report</a></span><br><br>
                     </li>
                 </ul>
                 <a class="nav-link" id="v-pills-search-tab" data-toggle="pill" href="../feedback.php" role="tab" aria-controls="v-pills-search" aria-selected="false">Feedbacks</a>
             </div>
         </div>
-        <div class="col-lg-10">
-            <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
-                <div class="navigate  d-flex  bg-danger-subtle p-2  justify-content-between">
+        <div  class="col-lg-10">
+            <div style="min-height:27rem; max-height:27rem; overflow: scroll;" class="contents">
+                <div style="position: relative;" class="navigate  d-flex  bg-danger-subtle p-2  justify-content-between">
                     <h2>My purchases</h2>
                     <button id="purchase" class="btn btn-primary">Make a purchase</button>
                 </div>
-                <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>price</th>
-                    <th>Total Price</th>
-                    <th>Operation</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                $orders="select * from purchase where user_id ='$user_id'";
-                $ordersrun=mysqli_query($conn,$orders);
-                while($rows=mysqli_fetch_assoc($ordersrun)){
-                    ?>
-                    <tr>
-                        <td><?php echo $rows['type']?></td>
-                        <td><?php echo $rows['name']?></td>
-                        <td><?php echo $rows['quantity']?></td>
-                        <td><?php echo $rows['price']?></td>
-                        <td><?php echo $rows['totalprice']?></td>
-                        <td>
-                            <form action="cleastudentprocessor.php" method="post">
-                                <input type="number" hidden="" value="<?php echo $rows['id']?>">
-                                <button type="submit" class="btn btn-success" name="clearstudent">Cancel Order</button>
-
-
-                            </form>
-                            </form>
-                        </td>
+                <table style="border: solid 1px red;" class="">
+           <thead>
+                    <tr style="border: 1px solid red;">
+                        <th style="border: 1px solid red;">Type</th>
+                        <th style="border: 1px solid red;">Name</th>
+                        <th style="border: 1px solid red;">Quantity</th>
+                        <th style="border: 1px solid red;">price</th>
+                        <th style="border: 1px solid red;">Total Price</th>
+                        <th rowspan="2" style="border: 1px solid red;">Operation</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <?php
-                }
-                ?>
-                </tbody>
-            </table>
+                    $orders="select * from purchase where user_id ='$user_id'";
+                    $ordersrun=mysqli_query($conn,$orders);
+                    while($rows=mysqli_fetch_assoc($ordersrun)){
+                        ?>
+                        <tr style="border: 1px solid red;">
+                            <td style="border: 1px solid red;"><?php echo $rows['type']?></td>
+                            <td style="border: 1px solid red;"><?php echo $rows['name']?></td>
+                            <td style="border: 1px solid red;"><?php if($rows['status']=='0'){
+                                echo 'Pending';
+                                }
+                                else if ($rows['status']=='1'){
+                                echo 'Processed';
+                                }
+                                else{
+                                    echo 'Cancelled';
+                                }
+                                ?></td>
+                            <td style="border: 1px solid red;"><?php echo $rows['price']?></td>
+                            <td style="border: 1px solid red;"><?php echo $rows['totalprice']?></td>
+                            <td colspan="" style="border: 1px solid red; margin-top: 1rem;padding-top:0.5rem ">
+                                <form action="processor.php" method="post">
+                                    <input type="number" hidden="" name="id" value="<?php echo $rows['id']?>">
+                                    <?php if($rows['status']=='0'){
+                                        echo ' <button type="submit" name="delete" class="btn  btn-danger">Cancel Order</button>';
+                                    }
+                                    else if ($rows['status']=='1'){
+                                        echo 'Processed';
+                                    }
+                                    else{
+                                        echo 'Cancelled';
+                                    }
+                                    ?>
+
+                                </form>
+
+                                </form>
+                            </td>
+                            <td><button class="btn btn-success">View</button></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
+
+            </div>
             <div  class="purchase" id="purchase_form">
                 <div class="float-end" id="close"><button class="btn btn-danger">Close</button></div>
                 <form method="post" action="index.php">
@@ -168,7 +192,6 @@ if(isset($_POST['confirm_purchase'])){
         </div>
     </div>
 </div>
-<p>Footer here</p>
 
 
 <script>
@@ -181,11 +204,18 @@ if(isset($_POST['confirm_purchase'])){
     close.addEventListener('click',()=>{
         purchase_form.style.display = 'none';
     })
-
-    var quantity=document.getElementById('quantity');
-    var price=document.getElementById('price');
-    var totalprice=document.getElementById('totalprice');
-
+// var quantity='';
+//     var price='';
+//     var totalprice='';
+//      quantity=document.getElementById('quantity');
+//     price=document.getElementById('price');
+//    totalprice=document.getElementById('totalprice');
+//     function myFunc(){
+//         // totalprice.style.display="block"
+//         quantity=quantity.value;
+//         price=price.value;
+//         totalprice.value = price*quantity
+//     }
 
     var ptype_select = document.getElementById("type");
     var name_select = document.getElementById("name");
@@ -229,13 +259,21 @@ if(isset($_POST['confirm_purchase'])){
     });
 
 
-function myFunc(){
-    // totalprice.style.display="block"
-    quantity=quantity.value;
-    price=price.value;
-    totalprice.value = price*quantity
-}
+
 
 </script>
+<div style="background: blue; position: fixed;bottom: 0px; width: 100%;" >
+    <div style="display: grid;justify-content: center; align-items: center;" class="my-1">
+        <h2 class="text-white">Send feedback|inquiries</h2>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Write to us" aria-label="Search">
+            <button class="btn btn-outline-info" type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="header d-flex justify-content-around align-content-center pt-0">
+        <p style="color: white; font-size: 23px;">Copyrights &copf; inventory system 2023</p>
+    </div>
+</div>
 </body>
 </html>
