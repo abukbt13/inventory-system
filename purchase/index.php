@@ -13,7 +13,7 @@ if(isset($_POST['confirm_purchase'])){
     $quantity=$_POST['quantity'];
     $price=$_POST['price'];
     $payment=$_POST['payment'];
-    $totalprice=$_POST['totalprice'];
+    $totalprice=$price*$quantity;
     $buy="insert into purchase (type,name,quantity,price,payment,totalprice,user_id) values ('$type','$name','$quantity','$price','$payment','$totalprice','$user_id')";
     $buyrun=mysqli_query($conn,$buy);
     if($buyrun){
@@ -106,16 +106,7 @@ if(isset($_POST['confirm_purchase'])){
                         <tr style="border: 1px solid red;">
                             <td style="border: 1px solid red;"><?php echo $rows['type']?></td>
                             <td style="border: 1px solid red;"><?php echo $rows['name']?></td>
-                            <td style="border: 1px solid red;"><?php if($rows['status']=='0'){
-                                echo 'Pending';
-                                }
-                                else if ($rows['status']=='1'){
-                                echo 'Processed';
-                                }
-                                else{
-                                    echo 'Cancelled';
-                                }
-                                ?></td>
+                            <td style="border: 1px solid red;"><?php echo $rows['quantity']?></td>
                             <td style="border: 1px solid red;"><?php echo $rows['price']?></td>
                             <td style="border: 1px solid red;"><?php echo $rows['totalprice']?></td>
                             <td colspan="" style="border: 1px solid red; margin-top: 1rem;padding-top:0.5rem ">
@@ -183,7 +174,6 @@ if(isset($_POST['confirm_purchase'])){
                             <option>Cash</option>
                         </select>
                     </div>
-                    <p>Total Amount <input type="text" style="display: block;" name="totalprice" id="totalprice" val=""></p>
                     <button type="submit" name="confirm_purchase" class="btn my-4 p-2 w-50 btn-primary">Confirm Purchase </button>
                 </form>
 

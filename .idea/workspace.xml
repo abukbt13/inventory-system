@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c82d4bf0-118f-42d0-b799-89139d6aa2ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Admin/purchase.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Admin/sale.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/purchase/processor.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sale/processor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inventory-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inventory-system.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admindashboard.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin/purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/purchase.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/purchase/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/purchase/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sale/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/sale/index.php" afterDir="false" />
     </list>
@@ -22,7 +17,8 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
@@ -31,7 +27,16 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
   <component name="ProjectId" id="2NmNU4LcIDERJdeUf9elYy7M1uo" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -80,6 +85,9 @@
       <workItem from="1681158265632" duration="232000" />
       <workItem from="1681312119213" duration="6951000" />
       <workItem from="1681367773359" duration="582000" />
+      <workItem from="1681508077099" duration="212000" />
+      <workItem from="1681881198838" duration="362000" />
+      <workItem from="1681882325466" duration="2433000" />
     </task>
     <servers />
   </component>

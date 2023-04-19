@@ -106,11 +106,18 @@ if(isset($_POST['confirm_sell'])){
                         <td><?php echo $rows['quantity']?></td>
                         <td><?php echo $rows['price']?></td>
                         <td><?php echo $rows['description']?></td>
-                        <td>
-                            <form action="processor.php" method="post">
+                        <td><form action="" method="post">
                                 <input type="number" hidden="" name="id" value="<?php echo $rows['id']?>">
-                                <button type="submit" onclick="returnConfirm('Are you sure you want to cancel the order')" name="delete" class="btn btn-success" >Cancel Order</button>
-
+                                <?php if($rows['status']=='0'){
+                                    echo ' <button type="submit" name="delete" class="btn  btn-danger">Cancel Order</button>';
+                                }
+                                else if ($rows['status']=='1'){
+                                    echo 'Processed';
+                                }
+                                else{
+                                    echo 'Cancelled';
+                                }
+                                ?>
 
                             </form>
                             </form>
