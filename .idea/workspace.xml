@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c82d4bf0-118f-42d0-b799-89139d6aa2ac" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inventory-system.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inventory-system.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Admin/purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/Admin/purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/purchase/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/purchase/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/sale/index.php" afterDir="false" />
-    </list>
+    <list default="true" id="c82d4bf0-118f-42d0-b799-89139d6aa2ac" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +80,7 @@
       <workItem from="1681367773359" duration="582000" />
       <workItem from="1681508077099" duration="212000" />
       <workItem from="1681881198838" duration="362000" />
-      <workItem from="1681882325466" duration="2433000" />
+      <workItem from="1681882325466" duration="2473000" />
     </task>
     <servers />
   </component>
