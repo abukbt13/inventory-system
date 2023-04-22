@@ -1,13 +1,5 @@
 <?php
-// session_start();
-
-// // Check if user is already logged in
-// if(isset($_SESSION['loggedIn'])){
-// 	header('Location: index.php');
-// 	exit();
-// }
-
-// require_once('inc/config/constants.php')
+session_start();
 require_once('header.php');
 ?>
 <body>
@@ -29,7 +21,7 @@ require_once('header.php');
                     <form action="processor.php" method="post">
                         <div>
                             <?php
-                            session_start();
+//                            session_start();
                             if(isset($_SESSION['status'])){
                                 ?>
                                 <div>
@@ -37,6 +29,14 @@ require_once('header.php');
                                 </div>
                                 <?php
                                 unset($_SESSION['status']);
+                            }
+                            if(isset($_SESSION['error'])){
+                                ?>
+                                <div>
+                                    <p class="text-white bg-danger btn-danger p-2"><?php echo $_SESSION['error']; ?> ?</p>
+                                </div>
+                                <?php
+                                unset($_SESSION['error']);
                             }
                             ?>
                         </div>

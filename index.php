@@ -18,6 +18,19 @@
 </div>
     <!-- Page Content -->
     <div class="container-fluid">
+		<?php
+		if(isset($_SESSION['error'])){
+			?>
+
+					<p style="font-size: 28px;" class="text-center bg-white text-danger"><?php echo $_SESSION['error'] ?></p>
+
+
+
+
+			<?php
+			unset($_SESSION['error']);
+		}
+		?>
 	  <div class="row">
 		<div class="col-lg-2">
 		<h1 class="my-4"></h1>
@@ -39,25 +52,28 @@
 			</div>
 		</div>
 		 <div style="display: grid; grid-template-columns: 1fr 1fr;align-items: center; justify-content: center;" class="col-lg-10">
+
 			 <div  style="width: 28rem;margin-top: 1rem; border:1px solid grey;display: grid;justify-content: center;align-items: center;" class="mypurchases rounded-3">
-				 <h2 class="text-primary text-decoration-underline p-2">My puchases</h2>
-				 <p>Worth of My purchase this year</p>
+				 <h2 class="text-primary text-decoration-underline p-2">Unprocessed puchases</h2>
 				 <?php
 				 $purchase="select * from purchase where user_id ='$user_id' and status =0";
 				 $purchaserun=mysqli_query($conn,$purchase);
 				 $number=mysqli_num_rows($purchaserun);
-				 echo '<p>'.$number.'</p>';
+				 echo '<p class="text-center">'.$number.'</p>';
+
 				 ?>
 
 			 </div>
 			 <div  style="width: 28rem;margin-top: 1rem; border:1px solid grey;display: grid;justify-content: center;align-items: center;" class="mypurchases rounded-3">
-				 <h2 class="text-primary text-decoration-underline p-2">My sales this year</h2>
-				 <p>Worth of My sale this year</p>
+				 <h2 class="text-primary text-decoration-underline p-2">Unprocessed orders </h2>
 				 <?php
 				 $sale="select * from sale where user_id ='$user_id' and status =0";
 				 $salerun=mysqli_query($conn,$sale);
 				 $numbersale=mysqli_num_rows($salerun);
-				 echo '<p>'.$numbersale.'</p>';
+				 if($numbersale==0){
+					 echo "<p class='text-center'>It seems you have not done any transaction or all your sales orders have been processed</p>";
+				 }
+				 echo '<p class="text-center">'.$numbersale.'</p>';
 				 ?>
 			 </div>
 

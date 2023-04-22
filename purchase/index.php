@@ -12,9 +12,9 @@ if(isset($_POST['confirm_purchase'])){
     $name=$_POST['name'];
     $quantity=$_POST['quantity'];
     $price=$_POST['price'];
-    $payment=$_POST['payment'];
     $totalprice=$price*$quantity;
-    $buy="insert into purchase (type,name,quantity,price,payment,totalprice,user_id) values ('$type','$name','$quantity','$price','$payment','$totalprice','$user_id')";
+
+    $buy="insert into purchase (type,name,quantity,price,totalprice,user_id) values ('$type','$name','$quantity','$price','$totalprice','$user_id')";
     $buyrun=mysqli_query($conn,$buy);
     if($buyrun){
 //        session_start();
@@ -94,6 +94,8 @@ if(isset($_POST['confirm_purchase'])){
                         <th style="border: 1px solid red;">Quantity</th>
                         <th style="border: 1px solid red;">price</th>
                         <th style="border: 1px solid red;">Total Price</th>
+                        <th style="border: 1px solid red;">Status</th>
+                        <th style="border: 1px solid red;">Payment Status</th>
                         <th rowspan="2" style="border: 1px solid red;">Operation</th>
                     </tr>
                     </thead>
@@ -109,6 +111,16 @@ if(isset($_POST['confirm_purchase'])){
                             <td style="border: 1px solid red;"><?php echo $rows['quantity']?></td>
                             <td style="border: 1px solid red;"><?php echo $rows['price']?></td>
                             <td style="border: 1px solid red;"><?php echo $rows['totalprice']?></td>
+                            <td style="border: 1px solid red;"><?php  if($rows['status']=='0'){
+                                        echo 'Not Processed';
+                                    }
+                                    else if ($rows['status']=='1'){
+                                        echo 'Processed';
+                                    }
+                                    else{
+                                        echo 'Cancelled';
+                                    }?></td>
+                            <td style="border: 1px solid red;"><button class="btn btn-success">Paid</button></td>
                             <td colspan="" style="border: 1px solid red; margin-top: 1rem;padding-top:0.5rem ">
                                 <form action="processor.php" method="post">
                                     <input type="number" hidden="" name="id" value="<?php echo $rows['id']?>">
@@ -119,7 +131,9 @@ if(isset($_POST['confirm_purchase'])){
                                         echo 'Processed';
                                     }
                                     else{
-                                        echo 'Cancelled';
+                                         if($rows['status']=='2'){
+                                            echo ' <button type="submit" name="delete" class="btn  btn-danger">Cancel Order</button>';
+                                        }
                                     }
                                     ?>
 
@@ -151,29 +165,22 @@ if(isset($_POST['confirm_purchase'])){
                     </div>
                     <div class="form-group">
                         <label for="">Product Name</label>
-                        <select id="name" name="name" class="form-control"></select>
+                        <select id="name" name="name" class="form-control">
+
+                        </select>
                     </div>
 
-
+                    <div class="form-group">
+                        <label for="quantity">Selling price each</label>
+                        <input type="number" name="sellprice" id="sellprice">
+                        <input type="number" hidden="" name="price" id="price" class="form-control">
+                    </div>
 
                     <div class="form-group">
                         <label for="quantity">Quantity</label>
-                        <input type="number" onchange="myFunc()" class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
+                        <input type="number"  class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
                     </div>
 
-                    <div class="form-group">
-                        <label for="quantity">Price per Bag 6000</label>
-                        <input type="number" hidden="" class="form-control"  name="price" id="price" value="6000" placeholder="Enter quantity">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="payment">Payment method</label>
-                        <select class="form-control" id="payment" name="payment">
-                            <option>Credit card</option>
-                            <option>Debit card</option>
-                            <option>Cash</option>
-                        </select>
-                    </div>
                     <button type="submit" name="confirm_purchase" class="btn my-4 p-2 w-50 btn-primary">Confirm Purchase </button>
                 </form>
 
@@ -194,21 +201,11 @@ if(isset($_POST['confirm_purchase'])){
     close.addEventListener('click',()=>{
         purchase_form.style.display = 'none';
     })
-// var quantity='';
-//     var price='';
-//     var totalprice='';
-//      quantity=document.getElementById('quantity');
-//     price=document.getElementById('price');
-//    totalprice=document.getElementById('totalprice');
-//     function myFunc(){
-//         // totalprice.style.display="block"
-//         quantity=quantity.value;
-//         price=price.value;
-//         totalprice.value = price*quantity
-//     }
+
 
     var ptype_select = document.getElementById("type");
     var name_select = document.getElementById("name");
+
 
     // Populate the districts select element when the region is changed
     ptype_select.addEventListener("change", function() {
@@ -247,7 +244,29 @@ if(isset($_POST['confirm_purchase'])){
             }
         }
     });
+    var price = document.getElementById("price");
+    var sellprice = document.getElementById("sellprice");
+    name_select.addEventListener("change", function() {
+        var name= name_select.value;
 
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Set up the Ajax request
+        xhr.open("POST", "../backend/price.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Send the Ajax request with the selected region value
+        xhr.send("description=" + name);
+
+        // Handle the Ajax response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                price.value = JSON.parse(xhr.responseText);
+                sellprice.value = JSON.parse(xhr.responseText);
+            }
+        }
+    });
 
 
 

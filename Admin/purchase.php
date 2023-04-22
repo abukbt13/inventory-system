@@ -50,14 +50,7 @@ include '../connection.php';
 <?php
 if(isset($_SESSION['status'])){
     ?>
-
-    <div style="display: flex; padding-right: 2rem; background: #0f5132;padding-left: 2rem; align-items: center; justify-content: space-between;" class="">
-        <div class="">
             <p style="font-size: 27px;" class="text-center p-3 bg-secondary text-uppercase"><?php echo $_SESSION['status'] ?></p>
-
-        </div>
-    </div>
-
     <?php
     unset($_SESSION['status']);
 }
@@ -101,13 +94,14 @@ if(isset($_SESSION['status'])){
     <div class="main_content">
         <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
             <thead>
-            <tr><td class="text-center text-uppercase" colspan="5">Farmers requesting to buy from the company</td></tr>
+            <tr><td class="text-center text-uppercase" colspan="6">Farmers requesting to buy from the company</td></tr>
             <tr>
                 <th>Type</th>
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Total price</th>
-                <th colspan="2">Operation</th>
+                <th colspan="">Accept</th>
+                <th colspan="">delete</th>
             </tr>
             </thead>
             <tbody>
@@ -123,8 +117,17 @@ if(isset($_SESSION['status'])){
                     <td><?php echo $rows['totalprice']?></td>
 
                     <td>
-                        <a class="btn btn-success">Accept</a>
-                        <a class="btn btn-success">Decline</a>
+                        <form action="processor.php" method="post">
+                            <input type="number" name="id" hidden="" value="<?php echo $rows['id']?>">
+                            <button type="submit" name="accept" class="btn btn-success">Accept</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="processor.php" method="post">
+                            <input type="number" name="id" hidden="" value="<?php echo $rows['id']?>">
+                            <button type="submit" name="decline" class="btn btn-success">Decline</button>
+                        </form>
+                    </td>
                 </tr>
                 <?php
             }

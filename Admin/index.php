@@ -1,8 +1,19 @@
 
 <?php
-session_start();
 
 include '../connection.php';
+session_start();
+if(!$_SESSION['role']){
+    session_start();
+    $_SESSION['error']='Login to view this page';
+    header("Location:../login.php");
+}
+if(!$_SESSION['role']=='superadmin'){
+    session_start();
+    $_SESSION['error']='You are not allowed to view that  page';
+    header("Location:../index.php");
+}
+
 
 ?>
 <!doctype html>
@@ -20,7 +31,7 @@ include '../connection.php';
     <h2 class="text-white">Cereals Inventory system </h2>
     <h2 class="text-white"><?php if(isset($_SESSION['username'])){
             echo $_SESSION['username'];
-        }?>| <a  style="font-size:22px;" href="logout.php" class="btn text-white">Logout</a></h2>
+        }?>| <a  style="font-size:22px;" href="../logout.php" class="btn text-white">Logout</a></h2>
 </div>
 <style>
     body{

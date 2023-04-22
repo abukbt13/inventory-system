@@ -106,10 +106,10 @@ if(isset($_POST['confirm_sell'])){
                         <td><?php echo $rows['quantity']?></td>
                         <td><?php echo $rows['price']?></td>
                         <td><?php echo $rows['description']?></td>
-                        <td><form action="" method="post">
+                        <td><form action="processor.php" method="post">
                                 <input type="number" hidden="" name="id" value="<?php echo $rows['id']?>">
                                 <?php if($rows['status']=='0'){
-                                    echo ' <button type="submit" name="delete" class="btn  btn-danger">Cancel Order</button>';
+                                    echo ' <button type="submit" name="deletesaleorder" class="btn  btn-danger">Cancel Order</button>';
                                 }
                                 else if ($rows['status']=='1'){
                                     echo 'Processed';
@@ -134,29 +134,35 @@ if(isset($_POST['confirm_sell'])){
                     <div class="form-group">
                         <label for="name">Product type</label>
                         <select required id="type" class="form-control" name="type">
-                            <option value="">--select type--</option>
-                            <option value="Maize">Maize</option>
-                            <option value="beans">beans</option>
-                            <option value="groundnuts">groundnuts</option>
+<!--                            <option value="">--select type--</option>-->
+                            <?php
+                            $types="select name from sales_description";
+                            $typesrun=mysqli_query($conn,$types);
+                             while ($row = mysqli_fetch_assoc($typesrun)){
+                                 ?>
+                                 <option value="<?php echo $row['name'];?>">
+                                     <?php echo $row['name'];?>
+                                 </option>
+                                 <?php
+                             }
+                            ?>
                         </select>
                     </div>
-
+                    <div class="form-group">
+                        <label for="quantity">Buying price</label>
+                        <input type="number" class="form-control" id="price">
+                    </div>
 
                     <div class="form-group">
                         <label for="quantity">Quantity</label>
-                        <input type="number"  onchange="myFunc()" class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
+                        <input type="number" class="form-control" required name="quantity" id="quantity" placeholder="Enter quantity">
                     </div>
-
-
 
                     <div class="form-group">
                         <label for="payment">Description</label>
-                            <textarea name="description" required id="" cols="30" rows="10"></textarea>
+                            <textarea name="description" required id="" cols="30" rows="8"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="quantity">Sell per bag  6000</label>
-                        <input type="number" hidden="" required class="form-control"  name="price" id="price" value="6000" placeholder="Enter quantity">
-                    </div>
+
                     <button type="submit" name="confirm_sell" class="btn my-4 p-2 w-50 btn-primary">Confirm Purchase </button>
                 </form>
 
@@ -165,8 +171,9 @@ if(isset($_POST['confirm_sell'])){
         </div>
     </div>
 </div>
-<p>Footer here</p>
-
+<div style="background: blue; position: fixed;bottom: 0px; width: 100%;" class="header d-flex justify-content-around align-content-center pt-3">
+    <p style="color: white; font-size: 23px;">Copyrights &copf; inventory system 2023</p>
+</div>
 
 <script>
     const purchase=document.getElementById('purchase')
@@ -178,25 +185,38 @@ if(isset($_POST['confirm_sell'])){
     close.addEventListener('click',()=>{
         purchase_form.style.display = 'none';
     })
-    const quantity=document.getElementById('quantity')
-    const price=document.getElementById('price')
-    const totalprice=document.getElementById('totalprice')
 
 
-    function myFunc(){
-        console.log(quantity)
+    const ptype_select=document.getElementById('type')
+    var price=document.getElementById('price')
 
-        // totalprice.style.display="block"
-        quantity=quantity.value;
-        price=price.value;
-        totalprice.value = price*quantity
-    }
+    ptype_select.addEventListener("change", function() {
+        var type= ptype_select.value;
+
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Set up the Ajax request
+        xhr.open("POST", "../backend/sales.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Send the Ajax request with the selected region value
+        xhr.send("price=" + price);
+
+
+        // Handle the Ajax response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                price.value = JSON.parse(xhr.responseText);
+            }
+        }
+    })
+
+
 
 
 
 </script>
-<div style="background: blue; position: fixed;bottom: 0px; width: 100%;" class="header d-flex justify-content-around align-content-center pt-3">
-    <p style="color: white; font-size: 23px;">Copyrights &copf; inventory system 2023</p>
-</div>
+
 </body>
 </html>
