@@ -134,9 +134,8 @@ if(isset($_POST['confirm_sell'])){
                     <div class="form-group">
                         <label for="name">Product type</label>
                         <select required id="type" class="form-control" name="type">
-<!--                            <option value="">--select type--</option>-->
                             <?php
-                            $types="select name from sales_description";
+                            $types="select * from sales_description";
                             $typesrun=mysqli_query($conn,$types);
                              while ($row = mysqli_fetch_assoc($typesrun)){
                                  ?>
@@ -192,8 +191,6 @@ if(isset($_POST['confirm_sell'])){
 
     ptype_select.addEventListener("change", function() {
         var type= ptype_select.value;
-
-        // Create a new XMLHttpRequest object
         var xhr = new XMLHttpRequest();
 
         // Set up the Ajax request
@@ -201,15 +198,16 @@ if(isset($_POST['confirm_sell'])){
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         // Send the Ajax request with the selected region value
-        xhr.send("price=" + price);
-
+        xhr.send("price=" + type);
 
         // Handle the Ajax response
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
                 price.value = JSON.parse(xhr.responseText);
+                // sellprice.value = JSON.parse(xhr.responseText);
             }
         }
+      // alert('Please select')
     })
 
 
