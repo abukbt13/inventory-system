@@ -62,7 +62,7 @@ if(isset($_SESSION['status'])){
             <div class="link">
                 <span class="">   <a href="index.php">Home</a></span><br><br>
                 <span class="">   <a href="purchase.php">Purchase Request</a></span><br><br>
-                <span class="my-5">   <a href="orders.php">Processed purchases</a></span><br><br>
+                <span class="my-5">   <a href="purchaseorders.php">Processed purchases</a></span><br><br>
             </div>
 
         </div>
@@ -70,7 +70,7 @@ if(isset($_SESSION['status'])){
             <h4>Sell Orders</h4>
             <div class="link">
                 <span class="">   <a href="sale.php" >Active Orders</a></span><br><br>
-                <span class="my-5">   <a href="cleared.php" >Cleared orders</a></span><br><br>
+                <span class="my-5">   <a href="saleorders.php" >Cleared orders</a></span><br><br>
             </div>
 
         </div>
@@ -96,44 +96,29 @@ if(isset($_SESSION['status'])){
 
         <table class="table table-responsive-sm table-primary table-hover table-bordered">
             <thead>
-            <tr><td class="text-center text-uppercase" colspan="7">Farmers requesting to sell their products</td></tr>
+            <tr><td class="text-center text-uppercase" colspan="7">Processed purchase orders</td></tr>
             <tr>
                 <th>Type</th>
                 <th>Name</th>
                 <th>Quantity</th>
-                <th>Total price</th>
+                <th>price</th>
                 <th>User id</th>
-                <th colspan="">Accept</th>
-                <th colspan="">Decline</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            $ordered_food="select * from sale where status='0'";
+            $ordered_food="select * from purchase where status='1'";
             $ordered_foodrun=mysqli_query($conn,$ordered_food);
             while($rows=mysqli_fetch_assoc($ordered_foodrun)){
                 ?>
                 <tr>
                     <td><?php echo $rows['type']?></td>
+                    <td><?php echo $rows['name']?></td>
                     <td><?php echo $rows['quantity']?></td>
                     <td><?php echo $rows['price']?></td>
-                    <td><?php echo $rows['description']?></td>
                     <td><?php echo $rows['user_id']?></td>
 
-                    <td>
-                        <form action="processor.php" method="post">
-                            <input type="number" name="id" hidden="" value="<?php echo $rows['id']?>">
-                            <button type="submit" name="acceptsale" class="btn btn-success">Accept</button>
-                        </form>
 
-                    </td>
-                    <td>
-                        <form action="processor.php" method="post">
-                            <input type="number" name="id" hidden="" value="<?php echo $rows['id']?>">
-
-                            <button type="submit" name="declinesale" class="btn btn-success">Decline</button>
-                        </form>
-                    </td>
                 </tr>
                 <?php
             }

@@ -16,7 +16,4 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 }
 
-
-// Return the district names as a JSON object
 echo json_encode($names);
-//echo json_encode($price);

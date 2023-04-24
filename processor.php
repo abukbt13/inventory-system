@@ -69,7 +69,7 @@ if(isset($_POST['register'])){
         $sql = "select username from users where email='$email' && password=md5($password)";
         $query = mysqli_query($conn, $sql);
         $count = mysqli_num_rows($query);
-        if($email=="superadmincereals@gmail.com" && $password=="10862804") {
+        if($email=="superadmin@gmail.com" && $password=="38948913") {
             session_start();
             echo "ndani";
             $_SESSION['role'] = 'superadmin';

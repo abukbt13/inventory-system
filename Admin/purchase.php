@@ -57,12 +57,12 @@ if(isset($_SESSION['status'])){
 ?>
 <div class="mainbody d-flex">
     <div class="sidebar">
-        <h3 class="text-center text-primary">Dashboard</h3>
         <div class="form-group ms-4">
             <h4>Purchase orders</h4>
             <div class="link">
+                <span class="">   <a href="index.php">Home</a></span><br><br>
                 <span class="">   <a href="purchase.php">Purchase Request</a></span><br><br>
-                <span class="my-5">   <a href="orders.php">Processed purchases</a></span><br><br>
+                <span class="my-5">   <a href="purchaseorders.php">Processed purchases</a></span><br><br>
             </div>
 
         </div>
@@ -70,7 +70,7 @@ if(isset($_SESSION['status'])){
             <h4>Sell Orders</h4>
             <div class="link">
                 <span class="">   <a href="sale.php" >Active Orders</a></span><br><br>
-                <span class="my-5">   <a href="cleared.php" >Cleared orders</a></span><br><br>
+                <span class="my-5">   <a href="saleorders.php" >Cleared orders</a></span><br><br>
             </div>
 
         </div>
@@ -92,6 +92,8 @@ if(isset($_SESSION['status'])){
 
     </div>
     <div class="main_content">
+        <span class="">   <a href="purchase.php">Purchase Request</a></span><br><br>
+
         <table class="table m-2 w-100  px-1 table-responsive-sm table-primary table-hover table-bordered">
             <thead>
             <tr><td class="text-center text-uppercase" colspan="6">Farmers requesting to buy from the company</td></tr>

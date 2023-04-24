@@ -12,7 +12,8 @@ if(isset($_POST['confirm_sell'])){
     $quantity=$_POST['quantity'];
     $price=$_POST['price'];
     $description=$_POST['description'];
-    $buy="insert into sale (type,quantity,price,description,user_id) values ('$type','$quantity','$price','$description','$user_id')";
+    $total=$price* $quantity;
+    $buy="insert into sale (type,quantity,price,description,user_id,total) values ('$type','$quantity','$price','$description','$user_id','$total')";
     $buyrun=mysqli_query($conn,$buy);
     if($buyrun){
         session_start();
@@ -134,6 +135,7 @@ if(isset($_POST['confirm_sell'])){
                     <div class="form-group">
                         <label for="name">Product type</label>
                         <select required id="type" class="form-control" name="type">
+                            <option value="">--select product typ--</option>
                             <?php
                             $types="select * from sales_description";
                             $typesrun=mysqli_query($conn,$types);
@@ -148,8 +150,8 @@ if(isset($_POST['confirm_sell'])){
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="quantity">Buying price</label>
-                        <input type="number" class="form-control" id="price">
+                        <label for="price">Buying price</label>
+                        <input type="number" name="price" class="form-control" id="price">
                     </div>
 
                     <div class="form-group">

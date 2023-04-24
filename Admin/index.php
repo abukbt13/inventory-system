@@ -75,12 +75,11 @@ if(isset($_SESSION['status'])){
 ?>
 <div class="mainbody d-flex">
     <div class="sidebar">
-        <h3 class="text-center text-primary">Dashboard</h3>
         <div class="form-group ms-4">
             <h4>Purchase orders</h4>
             <div class="link">
                 <span class="">   <a href="purchase.php">Purchase Request</a></span><br><br>
-                <span class="my-5">   <a href="orders.php">Processed purchases</a></span><br><br>
+                <span class="my-5">   <a href="purchaseorders.php">Processed purchases orders</a></span><br><br>
             </div>
 
         </div>
@@ -88,14 +87,14 @@ if(isset($_SESSION['status'])){
             <h4>Sell Orders</h4>
             <div class="link">
                 <span class="">   <a href="sale.php" >Active Orders</a></span><br><br>
-                <span class="my-5">   <a href="cleared.php" >Cleared orders</a></span><br><br>
+                <span class="my-5">   <a href="saleorders.php" >processed sale orders</a></span><br><br>
             </div>
 
         </div>
         <div class="form-group ms-4">
             <h4>Feedbacks</h4>
             <div class="link">
-                <span class="">   <a href="feedback.php">Unread Feedback</a></span><br><br>
+                <span class="">   <a href="feedbacks.php">Unread Feedback</a></span><br><br>
             </div>
 
         </div>
@@ -110,7 +109,29 @@ if(isset($_SESSION['status'])){
 
     </div>
     <div class="main_content">
+        <h2>dashboard</h2>
+        <div class="students p-4 bg-info m-2" >
+            <p class="text-center">Sales that have been sold to customers so far</p>
+            <p class="text-center">
+                <?php
+                $academics="select * from sale";
+                $academicsrun=mysqli_query($conn,$academics);
+                $academicsnum=mysqli_num_rows($academicsrun);
+                echo $academicsnum;
+                ?>
+            </p>
 
+        </div>
+        <div class="students m-2 p-4 bg-info" >
+            <p class="text-center">Number of customers who have sold us their items so far</p>
+            <p class="text-center"><?php
+                $data="select * from purchase";
+                $datarun=mysqli_query($conn,$data);
+                $datarunnum=mysqli_num_rows($datarun);
+                echo $datarunnum;
+                ?>
+            </p>
+        </div>
     </div>
 </div>
 <div style="background: blue; position: fixed;bottom: 0px; width: 100%;" class="header d-flex justify-content-around align-content-center pt-3">
