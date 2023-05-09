@@ -1,18 +1,22 @@
-<?php
-// session_start();
-
-// // Check if user is already logged in
-// if(isset($_SESSION['loggedIn'])){
-// 	header('Location: index.php');
-// 	exit();
-// }
-
-// require_once('inc/config/constants.php');
-// require_once('inc/config/db.php');
-require_once('header.php');
-?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
 <body>
-
+<?php include 'header.php';?>
+<div style="background: blue;" class="header d-flex justify-content-around align-content-center">
+    <h2 class="text-white">Cereals Inventory system </h2>
+    <h2 class="text-white"><?php if(isset($_SESSION['username'])){
+            echo $_SESSION['username'];
+        }?>| <a  style="font-size:22px;" href="logout.php" class="btn text-white">Logout</a></h2>
+</div>
+<br>
+<br>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-5 col-lg-5">
@@ -67,9 +71,12 @@ require_once('header.php');
         </div>
     </div>
 </div>
+<div style="background: blue; position: fixed;bottom: 0px; width: 100%;" class="header d-flex justify-content-around align-content-center pt-3">
 
-
-
-<p>footer here</p>
+    <p style="color: white; font-size: 23px;">Copyrights &copf; inventory system 2023</p>
+</div>
 </body>
 </html>
+
+
+
